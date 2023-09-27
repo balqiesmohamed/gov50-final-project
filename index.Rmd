@@ -11,4 +11,4 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to period waste. I am passionate about period poverty and education, specifically in low-income and developing countries. I want to answer how much period products, which are largely one-time and non-biodegradable, women use in developing countries in relation to the efficiency and productivity of waste management in that country. Not only is this a question of sustainability, but also one of public health. 
+I am interested in exploring data related to period waste. I am passionate about period poverty and education, specifically in low-income and developing countries. I want to answer how much period products, which are largely one-time use and non-biodegradable, women use in developing countries in relation to the efficiency and productivity of waste management in that country. Not only is this a question of sustainability, but also one of public health. 
