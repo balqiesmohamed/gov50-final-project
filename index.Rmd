@@ -21,13 +21,13 @@ Does access to reusable menstrual products change the attitudes of women towards
 
 ```{r}
 library(tidyverse)
-periods <- read.csv("Informed Choice for Better Menstrual Outcomes 2.csv")
+periods <- read_csv("Informed Choice for Better Menstrual Outcomes 2.csv")
 ```
 
 
 ```{r}
 periods |> 
-  select( "Age", "Padusers") |>
-  ggplot( mapping = aes( x = Age, y = Padusers)) + geom_col()
+  ggplot( mapping = aes( x = Age, y = Padusers)) + geom_col(fill = "darkseagreen4") + labs( x = "Age of Particpant", y = "Number of Particpants Using Pads", title = "Number of Padusers by Age", caption = "Source: University of Liverpool")
 
 ```
+
