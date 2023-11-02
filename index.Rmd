@@ -24,10 +24,10 @@ library(tidyverse)
 periods <- read.csv("Informed Choice for Better Menstrual Outcomes 2.csv")
 ```
 
+
 ```{r}
 periods |> 
-  select("Age", "Aware") |> 
-  ggplot( mapping = aes( x = Age, y = Aware)) + geom_col()
+  select( "Age", "Padusers") |>
+  ggplot( mapping = aes( x = Age, y = Padusers)) + geom_col()
 
 ```
-
