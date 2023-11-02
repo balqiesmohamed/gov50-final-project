@@ -20,7 +20,14 @@ I am interested in exploring data related to period waste. I am passionate about
 Does access to reusable menstrual products change the attitudes of women towards reusable products? (does access cause uptake) To answer this question, I plan to look at a data set from an experiment in which women are interviewed before and after they were given re-usable cloth pads. I hypothesize that with legitimate access to re-usable pads, women will change their preferences in which period products they chose to use outside of the study.The theory behind this is that access makes people realize that one kind of period products, the reusable kind, are preferable. The reason people do not switch is lack of access. If this is true, we should see an increase in the community where it is accessible. The explanatory variables is the attitudes of women towards reusable pads before exposure to it and after. My outcome variable is the attitudes and uptake of reusable pads. This data will be measured through the use of 0 and 1, wherein 1 indicates a women has preferences towards reusable pads. If my hypothesis is true we would observe a positive significant coefficient between uptake and access. If my hypothesis is incorrect, we would obserce a negative correlation between uptake and access.
 
 ```{r}
-read.csv("Informed Choice for Better Menstrual Outcomes 2.csv")
+library(tidyverse)
+periods <- read.csv("Informed Choice for Better Menstrual Outcomes 2.csv")
 ```
 
+```{r}
+periods |> 
+  select("Age", "Aware") |> 
+  ggplot( mapping = aes( x = Age, y = Aware)) + geom_col()
+
+```
 
