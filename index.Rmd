@@ -22,12 +22,52 @@ Does access to reusable menstrual products change the attitudes of women towards
 ```{r}
 library(tidyverse)
 periods <- read_csv("Informed Choice for Better Menstrual Outcomes 2.csv")
-```
 
+periods<-periods|>
+  mutate(person = if_else(NoStigma==1, 1, 1))
+periods
+
+```
+##Milestone 3 
 
 ```{r}
 periods |> 
-  ggplot( mapping = aes( x = Age, y = Padusers)) + geom_col(fill = "darkseagreen4") + labs( x = "Age of Particpant", y = "Number of Particpants Using Pads", title = "Number of Padusers by Age", caption = "Source: University of Liverpool")
+  ggplot( mapping = aes( x = Age, y = Padusers)) + geom_col(fill = "darkseagreen4") + 
+  labs( x = "Age of Particpant", y = "Number of Particpants Using Pads", title = "Number of Padusers by Age", caption = "Source: University of Liverpool")
+```
+## Milestone 4 
+
+```{r}
+
+library(broom)
+library(tidyverse)
+
+periods<-periods|>
+  mutate(nostig2= if_else(NoStigma==1, "No Stigma", "Stigma"))
+periods |> 
+  ggplot( mapping = aes( x = Age, y = person, fill = nostig2)) + geom_col() + 
+  labs( x = "Age of Particpant", y = "Stigma Towards Cloth Reusable Pads", title = "Presence of Stigma by Age", caption = "Source: University of Liverpool") + scale_fill_discrete( name = "Stigma Status")
+
+
+ prop<- periods|>
+  group_by(Age)|>
+  summarize(prop = sum(NoStigma)/sum(person))
+knitr::kable(prop)
+
+
+model<- lm(data = periods, NoStigma~Age)|>
+  broom::tidy()|>
+  select(term, est=estimate, se= std.error, pval=p.value)
+
+knitr::kable(model, digits=3, col.names= c("Variable", "Coefficient Estimate", "Standard Error", "P Value"))
+
 
 ```
+
+In realizing my data could not answer my initial research question- does access to cloth pads cause uptake? I found a different, but equally interesting and helpful question to answer: does age and stigma towards cloth,reusable menstrual pads have a relationship? 
+
+My first visualization titled "Number of PadUsers by Age" demonstrates how many pad users within an age group. While this does not directly answer my new research question, the data presented is  useful to determining who is most likely to use disposable pads. As seen, women over 40 are increasingly less likely to use disposible pads. This is not because of menopause as the study only includes women who have not yet reached menopause.Thus it may be concluded that women around the ages 39-60 are less likely to have been using disposable pads. 
+
+In the second visualization titled "Presence of Stigma by Age" directly answers the question of relationship between a the presence of stigma towards cloth pads and age. As seen by the graph and affirmed by the coefficient estimate, as age increases, the presence of stigma decreases. The proportions of stigma by age also offers an interesting perspective as some ages, for example 24 and 29, have no stigma whats so ever towards cloth pads. 
+
 
