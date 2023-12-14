@@ -1,7 +1,7 @@
 ---
-title: "Gov 50 Final Project"
+title: "Presence of Stigma of Environmentally-Friendly Cloth Pads in India"
 author: "Balqies Mohamed"
-description: "A Project to Exam Period Product Waste and Waste Management in Developing and Low-income Countries" 
+description: "Does Age and Stigma Towards Cloth, Reusable Menstrual Pads Have A Relationship?" 
 output:
   distill::distill_article:
     self_contained: false
@@ -21,6 +21,8 @@ Does access to reusable menstrual products change the attitudes of women towards
 
 ```{r}
 library(tidyverse)
+library(infer)
+
 periods <- read_csv("Informed Choice for Better Menstrual Outcomes 2.csv")
 
 periods<-periods|>
@@ -64,10 +66,73 @@ knitr::kable(model, digits=3, col.names= c("Variable", "Coefficient Estimate", "
 
 ```
 
+
 In realizing my data could not answer my initial research question- does access to cloth pads cause uptake? I found a different, but equally interesting and helpful question to answer: does age and stigma towards cloth,reusable menstrual pads have a relationship? 
 
 My first visualization titled "Number of PadUsers by Age" demonstrates how many pad users within an age group. While this does not directly answer my new research question, the data presented is  useful to determining who is most likely to use disposable pads. As seen, women over 40 are increasingly less likely to use disposible pads. This is not because of menopause as the study only includes women who have not yet reached menopause.Thus it may be concluded that women around the ages 39-60 are less likely to have been using disposable pads. 
 
 In the second visualization titled "Presence of Stigma by Age" directly answers the question of relationship between a the presence of stigma towards cloth pads and age. As seen by the graph and affirmed by the coefficient estimate, as age increases, the presence of stigma decreases. The proportions of stigma by age also offers an interesting perspective as some ages, for example 24 and 29, have no stigma whats so ever towards cloth pads. 
 
+##FINAL PROJECT 
 
+#Introduction - where you introduce the research question and hypothesis and briefly describe why it is interesting
+
+Amid increase environmental pollution and concern, researchers are looking for methods to reduce non-biodegradable waste. One of the sources of non-biodegradable waste is single use menstrual products. Alternatives to these single use products exist, yet many women still prefer single use menstrual products. By analyzing the cause of this preference, environmental groups can better encourage the uptake of reusable cloth pads. My research question asks: does age and stigma toward cloth, reusable menstrual pads have a relationship? 
+
+I hypothesize that as age increases stigma towards the cloth menstrual products also increase. I hypothesize this because the reliable, reusable menstrual products are fairly new technology offered to women. Older women may be hesitant to re-use or try cloth pads to do their inefficiency in the past. If this is true, marketers of the product and environmental experts can better address this group's concerns. Especially in countries where waste management is weak, it is especially important to encourage uptake of reusable material. This is interesting because, as different demographics of women are encouraged to move towards environmentally-friendly menstrual products, plastic waste is able to be curbed by a significant amount. Tru Earth estimates that in one woman's lifetime using plastic pads, 28,000 pounds of waste is also created. 
+https://www.tru.earth/Impact-of-Disposable-Feminine-Hygiene-Products-on-the-Environment#:~:text=In%20addition%2C%20the%20production%20process,than%2028%2C000%20pounds%20of%20waste.
+
+
+# Data Section - briefly describes the data source, describes how the key dependent and independent variables are measured (e.g., a survey, statistical model, or expert coding), and also produces a plot that summarizes the dependent variable
+
+The data I use stems from research conducted by the University of Liverpool wherein they seek to examine the causes of certain attitudes regarding menstrual hygiene materials in India. They specifically examine attitudes toward using reusable cloth pads among women when provided with access to these cloth pads and information about them. While the data that I use for my project is not the outcomes of the cross-sectional study itself, but rather the recorded data prior to their application of the treatment (exposure to cloth pads), the University of Liverpool did use a series of cross-sectional suverys over the course six months. In this cross-sectional study, women of varying age groups within India where assigned to three different condition; the first group were instructed to use single use pads and given information. The second group was offered information on the benefits and drawbacks of different menstrual products and given cloth-pads. The third and final group only received the information about the pads. 
+
+
+My independent variable is age. In figure 2, a graph visualizes the distribution of age among the participants in this study. As women tend to experience menopause around age 50, the number of women in that age group start to dwindle. Although age is not the dependent variable, it is helpful to view the spread of age to better understand the coefficient estimate later on. Age was recorded through self-reporting during the pre-survey before the actual experiment. 
+
+My dependent variable is stigma. In a barplot labelled figure 1, I plot the spread of the presence of stigma among the participants.The participants recorded their stigma towards cloth pads as either present or not present, leading to stigma being marked as either 1 or 0. As seen in the graph, more than 150 participants feel as though they have no stigma towards cloth pads. Stigma exists in a little under 50 participants of the cross-sectional study. In the next section, I will present whether this stigma exists in a particular relationship with age. 
+
+
+```{r}
+
+DV <- periods |> 
+  ggplot( mapping = aes( x = nostig2, y = Padusers)) + geom_col(fill = "pink") + labs( x  = "Presense of Stigma" , y =  "Number of Participants", title = "Figure 1, Spread of Dependent Variable: Presense of Stigma Amongst Participants")
+
+
+IV <- periods |> 
+  ggplot( mapping = aes( x = Age, y = Padusers)) + geom_col(fill = "darkseagreen4") + 
+  labs( x = "Age of Particpant", y = "Number of Particpants", title = " Figure 2, Spread of Independent Variable: Participants by Age", caption = "Source: University of Liverpool")
+
+IV 
+DV
+
+```
+
+#Results - contains a scatterplot, barplot, or boxplot of the main relationship of interest and output for the main regression of interest
+```{r}
+##Barplot
+periods<-periods|>
+  mutate(nostig2= if_else(NoStigma==1, "No Stigma", "Stigma"))
+periods |> 
+  ggplot( mapping = aes( x = Age, y = person, fill = nostig2)) + geom_col() + 
+  labs( x = "Age of Particpant", y = "Stigma Towards Cloth Reusable Pads", title = "Presence of Stigma by Age", caption = "Source: University of Liverpool") + scale_fill_discrete( name = "Stigma Status")
+
+##Finding Proportion
+ prop<- periods|>
+  group_by(Age)|>
+  summarize(prop = sum(NoStigma)/sum(person))
+knitr::kable(prop)
+
+## Regression
+model<- lm(data = periods, NoStigma~Age)|>
+  broom::tidy()|>
+  select(term, est=estimate, se= std.error, pval=p.value)
+knitr::kable(model, digits=3, col.names= c("Variable", "Coefficient Estimate", "Standard Error", "P Value"))
+
+
+```
+
+#Conclusion - one paragraph concluding section that summarizes your results, assesses the extent to which you find support for your hypothesis, describes limitations of your analysis and threats to inference, and states how your analysis could be improved
+
+
+As age increases, the presence of stigma decreases 
