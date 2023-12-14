@@ -22,12 +22,9 @@ periods
 ```
 
 
-
-
-
 FINAL PROJECT 
 
-#Introduction
+# Introduction
 
 Amid increase environmental pollution and concern, researchers are looking for methods to reduce non-biodegradable waste. One of the sources of non-biodegradable waste is single use menstrual products. Alternatives to these single use products exist, yet many women still prefer single use menstrual products. By analyzing the cause of this preference, environmental groups can better encourage the uptake of reusable cloth pads. My research question asks: does age and stigma toward cloth, reusable menstrual pads have a relationship? 
 
@@ -38,7 +35,6 @@ https://www.tru.earth/Impact-of-Disposable-Feminine-Hygiene-Products-on-the-Envi
 # Data Section 
 
 The data I use stems from research conducted by the University of Liverpool wherein they seek to examine the causes of certain attitudes regarding menstrual hygiene materials in India. They specifically examine attitudes toward using reusable cloth pads among women when provided with access to these cloth pads and information about them. While the data that I use for my project is not the outcomes of the cross-sectional study itself, but rather the recorded data prior to their application of the treatment (exposure to cloth pads), the University of Liverpool did use a series of cross-sectional suverys over the course six months. In this cross-sectional study, women of varying age groups within India where assigned to three different condition; the first group were instructed to use single use pads and given information. The second group was offered information on the benefits and drawbacks of different menstrual products and given cloth-pads. The third and final group only received the information about the pads. 
-
 
 My independent variable is age. In figure 2, a graph visualizes the distribution of age among the participants in this study. As women tend to experience menopause around age 50, the number of women in that age group start to dwindle. Although age is not the dependent variable, it is helpful to view the spread of age to better understand the coefficient estimate later on. Age was recorded through self-reporting during the pre-survey before the actual experiment. 
 
@@ -105,7 +101,7 @@ knitr::kable(model, digits=3, col.names= c("Variable",
 
 ```
 
-#Conclusion 
+# Conclusion 
 
 The results demonstrate that as age increases, the presence of stigma decreases. This proves my initial hypothesis incorrect as I had estimated that as age increase stigma would also increase. As seen by the graph and affirmed by the coefficient estimate, as age increases, the presence of stigma decreases. As seen by the graph and affirmed by the coefficient estimate, as age increases, the presence of stigma decreases. The proportions of stigma by age also offers an interesting perspective as some ages, for example 24 and 29, have no stigma whats so ever towards cloth pads. As the p-value is 0, we can conclude that these results are significant. 
 
